@@ -1,0 +1,62 @@
+# if you want to  scrape a website ,there are 2 methods of it :
+# 1st method - Use the API
+# 2ND method - HTML web scraping using some tool like BS4(beautiful soup)
+
+# these are some requirements which we have to install in Terminal for web scrapping :-
+#pip install requests 
+# pip install bs4
+# pip install html5lib 
+
+import requests
+from bs4 import BeautifulSoup
+url = "https://codewithharry.com"
+#STEP - 1 GET THE HTML 
+r = requests.get(url)
+htmlcontent = r.content
+#print(htmlcontent)
+
+#STEP - 2 PARSE THE HTML
+soup = BeautifulSoup(htmlcontent, 'html.parser')
+#print(soup.prettify)
+
+#STEP -3 HTML TREE TRAVERSAL
+
+# GET THE TITLE OF HTML PAGE 
+title = soup.title
+print(title)
+
+# GET ALL THE PARAGRAPHS FROM THE PAGE :
+paras = soup.find_all('p')
+print(paras)
+
+
+
+
+# GET FIRST ELELMENT IN THE HTML PAGE !
+print(soup.find('p'))
+
+# GET CLASSES OF ANY ELEMENT IN THE HTML PAGE !
+print(soup.find('p')['class'])
+
+# FIND ALL THE ELEMENTS WITH CLASS LEAD !
+print(soup.find_all("p", class_ = "lead"))
+
+# GET THE TEXT FROM THE ELEMENTS/TAG/SOUP !
+print(soup.get_text())
+
+# GET ALL THE ANCHORS FROM THE PAGE :
+anchors = soup.find_all('a')
+all_links = set()
+print(anchors)
+
+# GET ALL THE LINKS ON THE PAGE !
+for link in anchors :
+    if(link != '#'):
+        link = "https://codewithharry.com" +link.get('href')
+        all_links.add(link)
+        print(link)
+    
+
+
+
+
